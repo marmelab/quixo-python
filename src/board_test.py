@@ -1,6 +1,6 @@
 import unittest
 
-from board import create_board
+from board import create_board, get_symbol
 
 
 class TestBoardMethods(unittest.TestCase):
@@ -14,3 +14,8 @@ class TestBoardMethods(unittest.TestCase):
             [0, 0, 0, 0, 0]
         ]
         self.assertEqual(create_board(), empty_board)
+
+    def test_get_symbol(self):
+        self.assertEqual(get_symbol(1), 'o')
+        self.assertEqual(get_symbol(-1), 'x')
+        self.assertEqual(get_symbol(0), ' ')
