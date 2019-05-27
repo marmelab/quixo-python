@@ -6,11 +6,11 @@ help: ## Print all commands (default)
 install: ## Build the docker container
 	docker build -t quixo-python .
 
-run: ## Run the game. Usage : FILE_STATE=your-filename make run []
-	$(DOCKER) python3 ./main.py $(FILE_STATE)
+run: ## Run the game.
+	$(DOCKER) python3 ./main.py
 
 test: ## Run the tests
 	$(DOCKER) python3 -m unittest discover -v -s . -p "*_test.py"
 
 lint: ## Run the linter
-	$(DOCKER) pycodestyle . --max-line-length=150
+	$(DOCKER) pycodestyle .
