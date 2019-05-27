@@ -14,5 +14,5 @@ def print_board(board):
     for line in board:
         for tile in line:
             symbol = get_symbol(tile)
-            print('[' + symbol + ']', end='')
+            print(f'[{symbol}]', end='')
         print('')
