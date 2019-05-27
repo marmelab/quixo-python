@@ -1,5 +1,5 @@
 def move_row(board, row, yFrom, yTo, value):
-    step = -1 if yFrom > yTo else 1
+    step = -1 if yTo > yFrom else 1
     for y in range(yTo, yFrom - 1, step):
         prevVal = board[row][y]
         board[row][y] = value

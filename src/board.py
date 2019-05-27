@@ -16,3 +16,4 @@ def print_board(board):
             symbol = get_symbol(tile)
             print(f'[{symbol}]', end='')
         print('')
+    print('')
