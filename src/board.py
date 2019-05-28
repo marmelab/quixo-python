@@ -15,7 +15,7 @@ def print_board(board, instructions={}):
         for y in range(len(board[x])):
             symbol = get_symbol(board[x][y])
             instruction = instructions[(x, y)] if (x, y) in instructions else None
-            tileText = f'\t[{symbol}]' if instruction is None else f'\t({instruction})[{symbol}]'
+            tileText = f'\t[{symbol}]' if instruction is None else f'\t[{symbol}]({instruction})'
             print(f'{tileText}', end='\t')
         print('\n')
     print('')

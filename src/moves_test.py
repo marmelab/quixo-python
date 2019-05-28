@@ -23,6 +23,42 @@ class TestBoardMethods(unittest.TestCase):
         board = move_row(init_board, 1, 0, 4, 1)
         self.assertEqual(board, expected_board)
 
+    def test_move_row_tile_existing(self):
+        init_board = [
+            [0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0]
+        ]
+        expected_board = [
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0]
+        ]
+        board = move_row(init_board, 1, 0, 4, 1)
+        self.assertEqual(board, expected_board)
+
+    def test_move_row_tile_existing_end(self):
+        init_board = [
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0]
+        ]
+        expected_board = [
+            [0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0]
+        ]
+        board = move_row(init_board, 1, 4, 0, 1)
+        self.assertEqual(board, expected_board)
+
     def test_move_col(self):
         init_board = [
             [0, 0, 0, 0, 0],
@@ -39,6 +75,42 @@ class TestBoardMethods(unittest.TestCase):
             [0, 1, 0, 0, 0]
         ]
         board = move_col(init_board, 1, 0, 4, 1)
+        self.assertEqual(board, expected_board)
+
+    def test_move_col_tile_existing(self):
+        init_board = [
+            [0, 1, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0]
+        ]
+        expected_board = [
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 1, 0, 0, 0]
+        ]
+        board = move_col(init_board, 1, 0, 4, 1)
+        self.assertEqual(board, expected_board)
+
+    def test_move_col_tile_existing_end(self):
+        init_board = [
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 1, 0, 0, 0]
+        ]
+        expected_board = [
+            [0, 1, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0]
+        ]
+        board = move_col(init_board, 1, 4, 0, 1)
         self.assertEqual(board, expected_board)
 
     def test_is_movable_tile(self):
