@@ -1,5 +1,6 @@
-from constants import N_ROWS, N_COLS
 from copy import deepcopy
+from board import is_movable_tile
+from constants import N_ROWS, N_COLS
 
 
 def move_row(board, row, y_start, y_end, value):
@@ -28,27 +29,14 @@ def move_col(board, line, x_start, x_end, value):
     return board_copy
 
 
-def is_movable_tile(x, y):
-    """Check if a tile is allowed to be moved (On the edge of the board)
-
-    Arguments:
-        x {integer}
-        y {integer}
-
-    Returns:
-        boolean -- true if move is allowed
-    """
-    return x == 0 or y == 0 or x == N_ROWS - 1 or y == N_COLS - 1
-
-
 def move_tile(board, pos_start, pos_end, value):
     """Move a tile from a place to another one
 
     Arguments:
         board {Matrix} -- The game board
         pos_start {tupplet} -- The coord of the tile to be move
-        pos_end {[type]} -- The coord of the destination of the tile
-        value {[type]} -- The value affected to the tile
+        pos_end {tupplet} -- The coord of the destination of the tile
+        value {integer} -- The value affected to the tile
 
     Raises:
         GameException: Can't change the value of a not null tile

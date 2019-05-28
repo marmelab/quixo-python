@@ -16,6 +16,6 @@ class TestBoardMethods(unittest.TestCase):
         self.assertEqual(create_board(), empty_board)
 
     def test_get_symbol(self):
-        self.assertEqual(get_symbol(1), 'o')
-        self.assertEqual(get_symbol(-1), 'x')
+        self.assertEqual(get_symbol(1), 'O')
+        self.assertEqual(get_symbol(-1), 'X')
         self.assertEqual(get_symbol(0), ' ')
