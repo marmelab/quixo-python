@@ -83,7 +83,7 @@ def get_opposite_tile(x, y):
     if not is_movable_tile(x, y):
         raise Exception("Can't move a tile that is in the center of the board")
 
-    if x == y or x == 0 and y == 4 or x == 4 and y == 0:
+    if x == y or x == 0 and y == N_COLS or x == N_ROWS and y == 0:
         raise Exception("Can't move a tile that is in the corner (for the moment)")
 
     opposite_x = x
