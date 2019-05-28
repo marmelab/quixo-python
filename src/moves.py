@@ -9,9 +9,9 @@ def move_row(board, row, y_start, y_end, value):
     step = -1 if y_end > y_start else 1
     index_start = y_start - 1 if y_end > y_start else y_start + 1
     for y in range(y_end, index_start, step):
-        prevVal = board_copy[row][y]
+        prev_val = board_copy[row][y]
         board_copy[row][y] = value
-        value = prevVal
+        value = prev_val
 
     return board_copy
 
@@ -22,9 +22,9 @@ def move_col(board, line, x_start, x_end, value):
     step = -1 if x_end > x_start else 1
     index_start = x_start - 1 if x_end > x_start else x_start + 1
     for x in range(x_end, index_start, step):
-        prevVal = board_copy[x][line]
+        prev_val = board_copy[x][line]
         board_copy[x][line] = value
-        value = prevVal
+        value = prev_val
 
     return board_copy
 
