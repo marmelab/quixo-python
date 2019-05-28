@@ -13,4 +13,4 @@ test: ## Run the tests
 	$(DOCKER) python3 -m unittest discover -v -s . -p "*_test.py"
 
 lint: ## Run the linter
-	$(DOCKER) pycodestyle .
+	$(DOCKER) pycodestyle . --max-line-length=150

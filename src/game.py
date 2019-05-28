@@ -2,7 +2,7 @@ from moves import is_movable_tile, get_opposite_tile, move_tile
 from board import create_board, print_board
 
 
-def get_instructions(board, player_value = 0):
+def get_instructions(board, player_value=0):
     """Get movable tiles with an associated number
 
     Arguments:

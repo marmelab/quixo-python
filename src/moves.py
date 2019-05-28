@@ -1,24 +1,29 @@
 from constants import N_ROWS, N_COLS
+from copy import deepcopy
 
 
 def move_row(board, row, y_start, y_end, value):
+    board_copy = deepcopy(board)
+
     step = -1 if y_end > y_start else 1
     for y in range(y_end, y_start - 1, step):
-        prevVal = board[row][y]
-        board[row][y] = value
+        prevVal = board_copy[row][y]
+        board_copy[row][y] = value
         value = prevVal
 
-    return board
+    return board_copy
 
 
 def move_col(board, line, x_start, x_end, value):
+    board_copy = deepcopy(board)
+
     step = -1 if x_end > x_start else 1
     for x in range(x_end, x_start - 1, step):
-        prevVal = board[x][line]
-        board[x][line] = value
+        prevVal = board_copy[x][line]
+        board_copy[x][line] = value
         value = prevVal
 
-    return board
+    return board_copy
 
 
 def is_movable_tile(x, y):
@@ -51,6 +56,7 @@ def move_tile(board, pos_start, pos_end, value):
     Returns:
         The game board
     """
+    board_copy = deepcopy(board)
 
     (x, y) = pos_start
     (x_end, y_end) = pos_end
@@ -58,13 +64,13 @@ def move_tile(board, pos_start, pos_end, value):
     if not is_movable_tile(x, y):
         raise Exception("Can't move a tile that is in the center of the board")
 
-    if board[x][y] != 0 and board[x][y] != value:
+    if board_copy[x][y] != 0 and board_copy[x][y] != value:
         raise Exception(f"Can't change the value of tile {x} - {y}")
 
     if x == x_end:
-        return move_row(board, x, y, y_end, value)
+        return move_row(board_copy, x, y, y_end, value)
     elif y == y_end:
-        return move_col(board, y, x, x_end, value)
+        return move_col(board_copy, y, x, x_end, value)
     else:
         raise Exception("Can't move this tile to this position")
 
@@ -104,4 +110,3 @@ def get_opposite_tile(x, y):
         opposite_y = 0
 
     return (opposite_x, opposite_y)
-

@@ -10,7 +10,7 @@ def get_symbol(value):
     return ' '
 
 
-def print_board(board, instructions = {}):
+def print_board(board, instructions={}):
     for x in range(len(board)):
         for y in range(len(board[x])):
             symbol = get_symbol(board[x][y])
