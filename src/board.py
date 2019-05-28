@@ -10,10 +10,12 @@ def get_symbol(value):
     return ' '
 
 
-def print_board(board):
-    for line in board:
-        for tile in line:
-            symbol = get_symbol(tile)
-            print(f'[{symbol}]', end='')
-        print('')
+def print_board(board, instructions = {}):
+    for x in range(len(board)):
+        for y in range(len(board[x])):
+            symbol = get_symbol(board[x][y])
+            instruction = instructions[(x, y)] if (x, y) in instructions else None
+            tileText = f'\t[{symbol}]' if instruction is None else f'\t({instruction})[{symbol}]'
+            print(f'{tileText}', end='\t')
+        print('\n')
     print('')

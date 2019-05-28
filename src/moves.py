@@ -1,9 +1,9 @@
 from constants import N_ROWS, N_COLS
 
 
-def move_row(board, row, y_from, y_to, value):
-    step = -1 if y_to > y_from else 1
-    for y in range(y_to, y_from - 1, step):
+def move_row(board, row, y_start, y_end, value):
+    step = -1 if y_end > y_start else 1
+    for y in range(y_end, y_start - 1, step):
         prevVal = board[row][y]
         board[row][y] = value
         value = prevVal
@@ -11,9 +11,9 @@ def move_row(board, row, y_from, y_to, value):
     return board
 
 
-def move_col(board, line, x_from, x_to, value):
-    step = -1 if x_to > x_from else 1
-    for x in range(x_to, x_from - 1, step):
+def move_col(board, line, x_start, x_end, value):
+    step = -1 if x_end > x_start else 1
+    for x in range(x_end, x_start - 1, step):
         prevVal = board[x][line]
         board[x][line] = value
         value = prevVal
@@ -21,7 +21,7 @@ def move_col(board, line, x_from, x_to, value):
     return board
 
 
-def check_allowed_tile(x, y):
+def is_movable_tile(x, y):
     """Check if a tile is allowed to be moved (On the edge of the board)
 
     Arguments:
@@ -34,13 +34,13 @@ def check_allowed_tile(x, y):
     return x == 0 or y == 0 or x == N_ROWS - 1 or y == N_COLS - 1
 
 
-def move_tile(board, posFrom, posTo, value):
+def move_tile(board, pos_start, pos_end, value):
     """Move a tile from a place to another one
 
     Arguments:
         board {Matrix} -- The game board
-        posFrom {tupplet} -- The coord of the tile to be move
-        posTo {[type]} -- The coord of the destination of the tile
+        pos_start {tupplet} -- The coord of the tile to be move
+        pos_end {[type]} -- The coord of the destination of the tile
         value {[type]} -- The value affected to the tile
 
     Raises:
@@ -52,19 +52,19 @@ def move_tile(board, posFrom, posTo, value):
         The game board
     """
 
-    (x, y) = posFrom
-    (x_to, y_to) = posTo
+    (x, y) = pos_start
+    (x_end, y_end) = pos_end
 
-    if not check_allowed_tile(x, y):
+    if not is_movable_tile(x, y):
         raise Exception("Can't move a tile that is in the center of the board")
 
     if board[x][y] != 0 and board[x][y] != value:
         raise Exception(f"Can't change the value of tile {x} - {y}")
 
-    if x == x_to:
-        return move_row(board, x, y, y_to, value)
-    elif y == y_to:
-        return move_col(board, y, x, x_to, value)
+    if x == x_end:
+        return move_row(board, x, y, y_end, value)
+    elif y == y_end:
+        return move_col(board, y, x, x_end, value)
     else:
         raise Exception("Can't move this tile to this position")
 
@@ -84,7 +84,7 @@ def get_opposite_tile(x, y):
         tupplet -- x & y coords of the opposing tile
     """
 
-    if not check_allowed_tile(x, y):
+    if not is_movable_tile(x, y):
         raise Exception("Can't move a tile that is in the center of the board")
 
     if x == y or x == 0 and y == 4 or x == 4 and y == 0:
