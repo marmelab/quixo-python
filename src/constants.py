@@ -1,2 +1,2 @@
 N_ROWS = 5
-N_COL = 5
+N_COLS = 5
