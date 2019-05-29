@@ -8,13 +8,13 @@ def create_board():
 
 def get_symbol(value):
     if value < 0:
-        return 'X'
-    if value > 0:
         return 'O'
+    if value > 0:
+        return 'X'
     return ' '
 
 
-def print_board(board, movables, selected=(None, None)):
+def print_board(board, movables=[], selected=(None, None)):
     for x in range(len(board)):
         for y in range(len(board[x])):
             symbol = get_symbol(board[x][y])
