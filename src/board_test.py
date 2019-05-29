@@ -36,5 +36,9 @@ class TestBoardMethods(unittest.TestCase):
             [0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0]
         ]
-        expected_movables = [(0, 0), (0, 1), (0, 2), (0, 3), (0, 4), (1, 0), (1, 4), (2, 0), (2, 4), (3, 0), (3, 4), (4, 0), (4, 1), (4, 2), (4, 3), (4, 4)]
+        expected_movables = [
+            (0, 0), (0, 1), (0, 2), (0, 3), (0, 4),
+            (1, 0), (1, 4), (2, 0), (2, 4), (3, 0), (3, 4),
+            (4, 0), (4, 1), (4, 2), (4, 3), (4, 4)
+        ]
         self.assertEqual(get_movables_tiles(empty_board), expected_movables)

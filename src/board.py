@@ -14,7 +14,7 @@ def get_symbol(value):
     return ' '
 
 
-def print_board(board, movables, selected = (None, None)):
+def print_board(board, movables, selected=(None, None)):
     for x in range(len(board)):
         for y in range(len(board[x])):
             symbol = get_symbol(board[x][y])
@@ -59,26 +59,24 @@ def get_coords_from_movables(movables, n):
         return movables[n - 1]
     return None
 
+
 def get_possibles_destinations(board, x, y, value):
     destinations = []
-    is_available = lambda x, y: board[x][y] == 0 or board[x][y] == value
 
     if x == 0 or x == INDEX_LAST_ROW:
-        if  y != 0:
+        if y != 0:
             destinations.append((x, 0))
-        if  y != INDEX_LAST_COL:
+        if y != INDEX_LAST_COL:
             destinations.append((x, INDEX_LAST_COL))
         opposite = 0 if x == INDEX_LAST_ROW else INDEX_LAST_ROW
         destinations.append((opposite, y))
 
     if (y == 0 or y == INDEX_LAST_COL) and (x != 0 and x != INDEX_LAST_ROW):
-        if  x != 0:
+        if x != 0:
             destinations.append((0, y))
-        if  x != INDEX_LAST_ROW:
+        if x != INDEX_LAST_ROW:
             destinations.append((INDEX_LAST_COL, y))
         opposite = 0 if x == INDEX_LAST_COL else INDEX_LAST_COL
         destinations.append((x, opposite))
 
     return destinations
-
-
