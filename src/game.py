@@ -8,10 +8,17 @@ def clear():
     os.system('clear')
 
 
+def get_player(number):
+    if number == 1:
+        return '1'
+    if number == -1:
+        return '2'
+    return None
+
+
 def get_player_choice(question, choices, player_team=0):
-    n_player = 1 if player_team == 1 else 2
     if player_team != 0:
-        input_text = f'PLAYER {n_player} ({get_symbol(player_team)}) :\n{question}'
+        input_text = f'PLAYER {get_player(player_team)} ({get_symbol(player_team)}) :\n{question}'
     else:
         input_text = question
     while True:
@@ -26,21 +33,33 @@ def get_player_choice(question, choices, player_team=0):
         print("I didn't understood your answer. Try again.")
 
 
+def get_winner(total):
+    requirement = N_ROWS
+    if total == requirement:
+        return 1
+    if -total == requirement:
+        return -1
+    return 0
+
+
 def check_diag(board, inverted=False):
-    tiles_sum = 0
+    sum_diag = 0
     for i in range(N_ROWS):
         x = i
         y = i if not inverted else INDEX_LAST_ROW - i
-        tiles_sum += board[x][y]
+        sum_diag += board[x][y]
 
-    return tiles_sum == 5
+    return get_winner(sum_diag)
 
 
 def check_rows(board):
+    sum_row = 0
     for row in board:
-        if sum(row) == 5:
-            return True
-    return False
+        winner = get_winner(sum(row))
+        if (winner != 0):
+            return winner
+
+    return get_winner(sum_row)
 
 
 def check_cols(board):
@@ -50,17 +69,25 @@ def check_cols(board):
 
 
 def check_success(board):
+    """
+    Arguments:
+        board
+    Returns:
+        integer -- 0 if no winner else value of winner
+    """
     first_diag = check_diag(board)
     second_diag = check_diag(board, True)
     rows = check_rows(board)
     cols = check_cols(board)
+    for result in [first_diag, second_diag, rows, cols]:
+        if result != 0:
+            return result
+    return 0
 
-    return first_diag or second_diag or rows or cols
 
-
-def print_success(board):
+def print_success(board, winner):
     print_board(board)
-    print('The player 1 has aligned 5 cross. Game Won !')
+    print(f'The player {get_player(winner)} has aligned 5 symbols. Game Won !')
 
 
 def play():
@@ -69,8 +96,9 @@ def play():
     while True:
         clear()
 
-        if check_success(board):
-            print_success(board)
+        winner = check_success(board)
+        if winner != 0:
+            print_success(board, winner)
             break
 
         movables = get_movables_tiles(board, player_team)
