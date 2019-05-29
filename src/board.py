@@ -15,13 +15,11 @@ def get_symbol(value):
 
 
 def print_board(board, movables, selected = (None, None)):
-    choice_number = 1
     for x in range(len(board)):
         for y in range(len(board[x])):
             symbol = get_symbol(board[x][y])
             if (x, y) in movables:
-                tile_text = f'\t[{symbol}]({choice_number})'
-                choice_number += 1
+                tile_text = f'\t[{symbol}]({movables.index((x, y)) + 1})'
             else:
                 tile_text = f'\t[{symbol}]'
 
@@ -57,7 +55,7 @@ def get_movables_tiles(board, player_value=0):
 
 
 def get_coords_from_movables(movables, n):
-    if n < len(movables):
+    if n - 1 < len(movables):
         return movables[n - 1]
     return None
 
@@ -65,24 +63,21 @@ def get_possibles_destinations(board, x, y, value):
     destinations = []
     is_available = lambda x, y: board[x][y] == 0 or board[x][y] == value
 
-    print(x, y)
     if x == 0 or x == INDEX_LAST_ROW:
-        if is_available(x, 0) and y != 0:
+        if  y != 0:
             destinations.append((x, 0))
-        if is_available(x, INDEX_LAST_COL) and y != INDEX_LAST_COL:
+        if  y != INDEX_LAST_COL:
             destinations.append((x, INDEX_LAST_COL))
         opposite = 0 if x == INDEX_LAST_ROW else INDEX_LAST_ROW
-        if is_available(opposite, y):
-            destinations.append((opposite, y))
+        destinations.append((opposite, y))
 
-    if y == 0 or y == INDEX_LAST_COL:
-        if is_available(0, y) and x != 0:
+    if (y == 0 or y == INDEX_LAST_COL) and (x != 0 and x != INDEX_LAST_ROW):
+        if  x != 0:
             destinations.append((0, y))
-        if is_available(INDEX_LAST_ROW, y) and x != INDEX_LAST_ROW:
-            destinations.append((INDEX_LAST_COL, 4))
+        if  x != INDEX_LAST_ROW:
+            destinations.append((INDEX_LAST_COL, y))
         opposite = 0 if x == INDEX_LAST_COL else INDEX_LAST_COL
-        if is_available(x, opposite):
-            destinations.append((x, opposite))
+        destinations.append((x, opposite))
 
     return destinations
 

@@ -10,7 +10,6 @@ def clear():
 def get_player_choice(question, choices):
     while True:
         choice = input(question)
-        print(choice, choices)
         if choice in choices:
             return choice
         try:
@@ -44,7 +43,6 @@ def play():
         destination_input = get_player_choice('Destination of the tile : ', destinations_choices)
 
         (x_end, y_end) = get_coords_from_movables(destinations, destination_input)
-
         board = move_tile(board, (x_start, y_start), (x_end, y_end), player_team)
 
-        player_team *= -1
+        # player_team *= -1
