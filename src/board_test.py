@@ -44,7 +44,7 @@ class TestBoardMethods(unittest.TestCase):
         ]
         self.assertEqual(get_movables_tiles(empty_board), expected_movables)
 
-    def test_get_possibles_destinations(self):
+    def test_get_possibles_destinations_corner(self):
         x, y = (0, 0)
         empty_board = [
             [1, 0, 0, 0, 0],
@@ -54,6 +54,36 @@ class TestBoardMethods(unittest.TestCase):
             [0, 0, 0, 0, 0]
         ]
         expected_destinations = [(0, 4), (4, 0)]
+        destinations = get_possibles_destinations(empty_board, x, y)
+
+        for expected_dest in expected_destinations:
+            self.assertIn(expected_dest, destinations)
+
+    def test_get_possibles_destinations_row(self):
+        x, y = (0, 1)
+        empty_board = [
+            [0, 1, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0]
+        ]
+        expected_destinations = [(0, 0), (0, 4), (4, 1)]
+        destinations = get_possibles_destinations(empty_board, x, y)
+
+        for expected_dest in expected_destinations:
+            self.assertIn(expected_dest, destinations)
+
+    def test_get_possibles_destinations_col(self):
+        x, y = (1, 0)
+        empty_board = [
+            [0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0]
+        ]
+        expected_destinations = [(0, 0), (4, 0), (1, 4)]
         destinations = get_possibles_destinations(empty_board, x, y)
 
         for expected_dest in expected_destinations:

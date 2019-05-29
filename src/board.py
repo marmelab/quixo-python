@@ -18,11 +18,9 @@ def print_board(board, movables, selected=(None, None)):
     for x in range(len(board)):
         for y in range(len(board[x])):
             symbol = get_symbol(board[x][y])
+            tile_text = f'\t[{symbol}]'
             if (x, y) in movables:
-                tile_text = f'\t[{symbol}]({movables.index((x, y)) + 1})'
-            else:
-                tile_text = f'\t[{symbol}]'
-
+                tile_text = f'{tile_text}({movables.index((x, y)) + 1})'
             if (x, y) == selected:
                 tile_text = f'\033[5m{tile_text}\033[0m'
             print(f'{tile_text}', end='\t')
@@ -42,7 +40,7 @@ def get_movables_tiles(board, player_value=0):
         player_value {integer} -- -1 or 1 (cirle or cross)
 
     Returns:
-        Dictionnary -- A dictionnary with coords in key and instruction in value
+        List -- An array with the movables tiles
     """
     movable = []
     for x in range(len(board)):
@@ -54,9 +52,9 @@ def get_movables_tiles(board, player_value=0):
     return movable
 
 
-def get_coords_from_movables(movables, n):
-    if n - 1 < len(movables):
-        return movables[n - 1]
+def get_coords_from_movables(movables, index_selected_tile):
+    if index_selected_tile - 1 < len(movables):
+        return movables[index_selected_tile - 1]
     return None
 
 
