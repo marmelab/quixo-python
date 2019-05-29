@@ -2,6 +2,7 @@ from copy import deepcopy
 from game.constants import N_ROWS, N_COLS
 from game.board import is_movable_tile
 
+
 def move_row(board, row, y_start, y_end, value):
     board_copy = deepcopy(board)
 
