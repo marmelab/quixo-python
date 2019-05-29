@@ -1,6 +1,7 @@
 import unittest
 
-from board import create_board, get_symbol, is_movable_tile, get_movables_tiles
+from board import create_board, get_symbol, is_movable_tile, get_movables_tiles, get_possibles_destinations
+from constants import N_ROWS, N_COLS, INDEX_LAST_ROW, INDEX_LAST_COL
 
 
 class TestBoardMethods(unittest.TestCase):
@@ -42,3 +43,18 @@ class TestBoardMethods(unittest.TestCase):
             (4, 0), (4, 1), (4, 2), (4, 3), (4, 4)
         ]
         self.assertEqual(get_movables_tiles(empty_board), expected_movables)
+
+    def test_get_possibles_destinations(self):
+        x, y = (0, 0)
+        empty_board = [
+            [1, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0]
+        ]
+        expected_destinations = [(0, 4), (4, 0)]
+        destinations = get_possibles_destinations(empty_board, x, y)
+
+        for expected_dest in expected_destinations:
+            self.assertIn(expected_dest, destinations)

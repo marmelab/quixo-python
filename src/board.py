@@ -60,7 +60,7 @@ def get_coords_from_movables(movables, n):
     return None
 
 
-def get_possibles_destinations(board, x, y, value):
+def get_possibles_destinations(board, x, y):
     destinations = []
 
     if x == 0 or x == INDEX_LAST_ROW:

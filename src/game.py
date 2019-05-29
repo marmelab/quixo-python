@@ -36,7 +36,7 @@ def play():
 
         (x_start, y_start) = get_coords_from_movables(movables, player_input)
 
-        destinations = get_possibles_destinations(board, x_start, y_start, player_team)
+        destinations = get_possibles_destinations(board, x_start, y_start)
         print_board(board, destinations, (x_start, y_start))
 
         destinations_choices = list(range(1, len(destinations) + 1))
