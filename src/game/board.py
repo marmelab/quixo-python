@@ -1,31 +1,9 @@
 from copy import deepcopy
-from constants import N_ROWS, N_COLS, INDEX_LAST_ROW, INDEX_LAST_COL
+from game.constants import N_COLS, N_ROWS, INDEX_LAST_COL, INDEX_LAST_ROW
 
 
 def create_board():
     return [[0 for j in range(N_COLS)] for i in range(N_ROWS)]
-
-
-def get_symbol(value):
-    if value < 0:
-        return 'O'
-    if value > 0:
-        return 'X'
-    return ' '
-
-
-def print_board(board, movables=[], selected=(None, None)):
-    for x in range(len(board)):
-        for y in range(len(board[x])):
-            symbol = get_symbol(board[x][y])
-            tile_text = f'\t[{symbol}]'
-            if (x, y) in movables:
-                tile_text = f'{tile_text}({movables.index((x, y)) + 1})'
-            if (x, y) == selected:
-                tile_text = f'\033[5m{tile_text}\033[0m'
-            print(f'{tile_text}', end='\t')
-        print('\n')
-    print('')
 
 
 def is_movable_tile(x, y):

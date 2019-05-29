@@ -1,7 +1,6 @@
 from copy import deepcopy
-from board import is_movable_tile
-from constants import N_ROWS, N_COLS
-
+from game.constants import N_ROWS, N_COLS
+from game.board import is_movable_tile
 
 def move_row(board, row, y_start, y_end, value):
     board_copy = deepcopy(board)
@@ -63,37 +62,3 @@ def move_tile(board, pos_start, pos_end, value):
         return move_col(board_copy, y, x, x_end, value)
     else:
         raise Exception("Can't move this tile to this position")
-
-
-def get_opposite_tile(x, y):
-    """Get opposite tile for the 1st version of the game
-
-    Arguments:
-        x {integer}
-        y {integer}
-
-    Raises:
-        GameException: Can't move a tile that is in the center of the board
-        GameException: Can't move a tile that is in the corner (for the moment)
-
-    Returns:
-        tupplet -- x & y coords of the opposing tile
-    """
-
-    if not is_movable_tile(x, y):
-        raise Exception("Can't move a tile that is in the center of the board")
-
-    opposite_x = x
-    opposite_y = y
-
-    if x == 0:
-        opposite_x = N_COLS - 1
-    elif x == N_COLS - 1:
-        opposite_x = 0
-
-    if y == 0:
-        opposite_y = N_ROWS - 1
-    elif y == N_ROWS - 1:
-        opposite_y = 0
-
-    return (opposite_x, opposite_y)

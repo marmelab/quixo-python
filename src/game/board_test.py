@@ -1,7 +1,6 @@
 import unittest
 
-from board import create_board, get_symbol, is_movable_tile, get_movables_tiles, get_possibles_destinations
-from constants import N_ROWS, N_COLS, INDEX_LAST_ROW, INDEX_LAST_COL
+from game.board import create_board, is_movable_tile, get_movables_tiles, get_possibles_destinations
 
 
 class TestBoardMethods(unittest.TestCase):
@@ -15,11 +14,6 @@ class TestBoardMethods(unittest.TestCase):
             [0, 0, 0, 0, 0]
         ]
         self.assertEqual(create_board(), empty_board)
-
-    def test_get_symbol(self):
-        self.assertEqual(get_symbol(1), 'X')
-        self.assertEqual(get_symbol(-1), 'O')
-        self.assertEqual(get_symbol(0), ' ')
 
     def test_is_movable_tile(self):
         self.assertTrue(is_movable_tile(0, 0))
