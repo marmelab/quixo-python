@@ -1,6 +1,7 @@
 from game import play
 import sys
 
+
 def goodbye():
     return 'Goodbye!'
 
