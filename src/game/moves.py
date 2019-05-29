@@ -3,6 +3,7 @@ from game.constants import N_ROWS, N_COLS
 from game.board import is_movable_tile
 from game.GameException import GameException
 
+
 def move_row(board, row, y_start, y_end, value):
     board_copy = deepcopy(board)
 
@@ -51,7 +52,7 @@ def move_tile(board, pos_start, pos_end, value):
     (x, y) = pos_start
     (x_end, y_end) = pos_end
 
-    if not is_movable_tile(x, y) or True:
+    if not is_movable_tile(x, y):
         raise GameException("Can't move a tile that is in the center of the board")
 
     if board_copy[x][y] != 0 and board_copy[x][y] != value:
