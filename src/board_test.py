@@ -88,3 +88,18 @@ class TestBoardMethods(unittest.TestCase):
 
         for expected_dest in expected_destinations:
             self.assertIn(expected_dest, destinations)
+
+    def test_get_possibles_destinations_col_last(self):
+        x, y = (1, 4)
+        empty_board = [
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0]
+        ]
+        expected_destinations = [(0, 4), (4, 4), (1, 0)]
+        destinations = get_possibles_destinations(empty_board, x, y)
+
+        for expected_dest in expected_destinations:
+            self.assertIn(expected_dest, destinations)
