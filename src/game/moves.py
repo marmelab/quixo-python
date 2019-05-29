@@ -1,7 +1,7 @@
 from copy import deepcopy
 from game.constants import N_ROWS, N_COLS
 from game.board import is_movable_tile
-
+from game.GameException import GameException
 
 def move_row(board, row, y_start, y_end, value):
     board_copy = deepcopy(board)
@@ -51,15 +51,15 @@ def move_tile(board, pos_start, pos_end, value):
     (x, y) = pos_start
     (x_end, y_end) = pos_end
 
-    if not is_movable_tile(x, y):
-        raise Exception("Can't move a tile that is in the center of the board")
+    if not is_movable_tile(x, y) or True:
+        raise GameException("Can't move a tile that is in the center of the board")
 
     if board_copy[x][y] != 0 and board_copy[x][y] != value:
-        raise Exception(f"Can't change the value of tile {x} - {y}")
+        raise GameException(f"Can't change the value of tile {x} - {y}")
 
     if x == x_end:
         return move_row(board_copy, x, y, y_end, value)
     elif y == y_end:
         return move_col(board_copy, y, x, x_end, value)
     else:
-        raise Exception("Can't move this tile to this position")
+        raise GameException("Can't move this tile to this position")
