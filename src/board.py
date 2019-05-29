@@ -1,4 +1,5 @@
-from constants import N_ROWS, N_COLS
+from copy import deepcopy
+from constants import N_ROWS, N_COLS, INDEX_LAST_ROW, INDEX_LAST_COL
 
 
 def create_board():
@@ -13,13 +14,20 @@ def get_symbol(value):
     return ' '
 
 
-def print_board(board, instructions={}):
+def print_board(board, movables, selected = (None, None)):
+    choice_number = 1
     for x in range(len(board)):
         for y in range(len(board[x])):
             symbol = get_symbol(board[x][y])
-            instruction = instructions[(x, y)] if (x, y) in instructions else None
-            tileText = f'\t[{symbol}]' if instruction is None else f'\t[{symbol}]({instruction})'
-            print(f'{tileText}', end='\t')
+            if (x, y) in movables:
+                tile_text = f'\t[{symbol}]({choice_number})'
+                choice_number += 1
+            else:
+                tile_text = f'\t[{symbol}]'
+
+            if (x, y) == selected:
+                tile_text = f'\033[5m{tile_text}\033[0m'
+            print(f'{tile_text}', end='\t')
         print('\n')
     print('')
 
@@ -38,21 +46,44 @@ def get_movables_tiles(board, player_value=0):
     Returns:
         Dictionnary -- A dictionnary with coords in key and instruction in value
     """
-    movable = {}
-    n = 1
+    movable = []
     for x in range(len(board)):
         for y in range(len(board[x])):
             value = board[x][y]
             if is_movable_tile(x, y) and (value == 0 or value == player_value):
-                movable[(x, y)] = n
-                n += 1
+                movable.append((x, y))
 
     return movable
 
 
 def get_coords_from_movables(movables, n):
-    for coord, number in movables.items():
-        if number == n:
-            return coord
-
+    if n < len(movables):
+        return movables[n - 1]
     return None
+
+def get_possibles_destinations(board, x, y, value):
+    destinations = []
+    is_available = lambda x, y: board[x][y] == 0 or board[x][y] == value
+
+    print(x, y)
+    if x == 0 or x == INDEX_LAST_ROW:
+        if is_available(x, 0) and y != 0:
+            destinations.append((x, 0))
+        if is_available(x, INDEX_LAST_COL) and y != INDEX_LAST_COL:
+            destinations.append((x, INDEX_LAST_COL))
+        opposite = 0 if x == INDEX_LAST_ROW else INDEX_LAST_ROW
+        if is_available(opposite, y):
+            destinations.append((opposite, y))
+
+    if y == 0 or y == INDEX_LAST_COL:
+        if is_available(0, y) and x != 0:
+            destinations.append((0, y))
+        if is_available(INDEX_LAST_ROW, y) and x != INDEX_LAST_ROW:
+            destinations.append((INDEX_LAST_COL, 4))
+        opposite = 0 if x == INDEX_LAST_COL else INDEX_LAST_COL
+        if is_available(x, opposite):
+            destinations.append((x, opposite))
+
+    return destinations
+
+

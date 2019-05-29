@@ -1,5 +1,5 @@
 from moves import is_movable_tile, get_opposite_tile, move_tile
-from board import create_board, print_board, get_movables_tiles, get_coords_from_movables
+from board import create_board, print_board, get_movables_tiles, get_coords_from_movables, get_possibles_destinations
 import os
 
 
@@ -10,6 +10,7 @@ def clear():
 def get_player_choice(question, choices):
     while True:
         choice = input(question)
+        print(choice, choices)
         if choice in choices:
             return choice
         try:
@@ -28,11 +29,17 @@ def play():
         movables = get_movables_tiles(board, player_team)
         print_board(board, movables)
 
-        player_choices = movables.values()
-        player_input = get_player_choice('Tile to move : ', player_choices)
-
+        movables_choices = list(range(1, len(movables) + 1))
+        player_input = get_player_choice('Tile to move : ', movables_choices)
         (x_start, y_start) = get_coords_from_movables(movables, player_input)
-        (x_end, y_end) = get_opposite_tile(x_start, y_start)
+
+        destinations = get_possibles_destinations(board, x_start, y_start, player_team)
+        # clear()
+        print_board(board, destinations, (x_start, y_start))
+        destinations_choices = list(range(1, len(destinations) + 1))
+        destination_input = get_player_choice('Destination of the tile : ', destinations_choices)
+
+        (x_end, y_end) = get_coords_from_movables(movables, destination_input)
 
         board = move_tile(board, (x_start, y_start), (x_end, y_end), player_team)
         player_team *= -1
