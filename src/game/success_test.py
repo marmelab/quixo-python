@@ -87,3 +87,14 @@ class TestGameMethods(unittest.TestCase):
             [-1, 0, 0, 0, 0]
         ]
         self.assertEqual(check_success(board), -1)
+
+    def check_draw_success(self):
+        board = [
+            [-1, -1, -1, -1, -1],
+            [1, 1, 1, 1, 1],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0]
+        ]
+
+        self.assertEqual(check_success(board, -1), 1)
