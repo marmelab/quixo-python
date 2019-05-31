@@ -1,6 +1,6 @@
 import unittest
 
-from moves import move_row, move_col, is_movable_tile, move_tile, get_opposite_tile
+from game.moves import move_row, move_col, is_movable_tile, move_tile
 
 
 class TestBoardMethods(unittest.TestCase):
@@ -138,7 +138,3 @@ class TestBoardMethods(unittest.TestCase):
         tile_end = (4, 1)
         board = move_tile(init_board, tile_start, tile_end, 1)
         self.assertEqual(board, expected_board)
-
-    def test_get_opposite_tile(self):
-        (x, y) = get_opposite_tile(0, 1)
-        self.assertEqual((x, y), (4, 1))

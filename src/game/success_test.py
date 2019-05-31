@@ -1,6 +1,5 @@
 import unittest
-
-from game import check_success
+from game.success import check_success
 
 
 class TestGameMethods(unittest.TestCase):

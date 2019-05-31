@@ -1,4 +1,4 @@
-from game import play
+import play
 import sys
 
 
@@ -8,7 +8,7 @@ def goodbye():
 
 if __name__ == '__main__':
     try:
-        play()
+        play.launch_game()
     except KeyboardInterrupt:
         print('\n' + goodbye())
         sys.exit(0)
