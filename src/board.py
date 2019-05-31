@@ -74,7 +74,7 @@ def get_possibles_destinations(board, x, y):
             destinations.append((0, y))
         if x != INDEX_LAST_ROW:
             destinations.append((INDEX_LAST_COL, y))
-        opposite = 0 if x == INDEX_LAST_COL else INDEX_LAST_COL
+        opposite = 0 if y == INDEX_LAST_COL else INDEX_LAST_COL
         destinations.append((x, opposite))
 
     return destinations

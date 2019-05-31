@@ -15,7 +15,7 @@ class TestGameMethods(unittest.TestCase):
         ]
         self.assertFalse(check_success(board))
 
-    def test_check_success(self):
+    def test_check_success_player_1(self):
         board = [
             [0, 0, 0, 0, 0],
             [1, 1, 1, 1, 1],
@@ -23,7 +23,7 @@ class TestGameMethods(unittest.TestCase):
             [0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0]
         ]
-        self.assertTrue(check_success(board))
+        self.assertEqual(check_success(board), 1)
 
         board = [
             [1, 0, 0, 0, 0],
@@ -32,7 +32,7 @@ class TestGameMethods(unittest.TestCase):
             [1, 0, 0, 0, 0],
             [1, 0, 0, 0, 0]
         ]
-        self.assertTrue(check_success(board))
+        self.assertEqual(check_success(board), 1)
 
         board = [
             [1, 0, 0, 0, 0],
@@ -41,7 +41,7 @@ class TestGameMethods(unittest.TestCase):
             [0, 0, 0, 1, 0],
             [0, 0, 0, 0, 1]
         ]
-        self.assertTrue(check_success(board))
+        self.assertEqual(check_success(board), 1)
 
         board = [
             [0, 0, 0, 0, 1],
@@ -50,4 +50,41 @@ class TestGameMethods(unittest.TestCase):
             [0, 1, 0, 0, 0],
             [1, 0, 0, 0, 0]
         ]
-        self.assertTrue(check_success(board))
+        self.assertEqual(check_success(board), 1)
+
+    def test_check_success_player_2(self):
+        board = [
+            [0, 0, 0, 0, 0],
+            [-1, -1, -1, -1, -1],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0]
+        ]
+        self.assertEqual(check_success(board), -1)
+
+        board = [
+            [-1, 0, 0, 0, 0],
+            [-1, 0, 0, 0, 0],
+            [-1, 0, 0, 0, 0],
+            [-1, 0, 0, 0, 0],
+            [-1, 0, 0, 0, 0]
+        ]
+        self.assertEqual(check_success(board), -1)
+
+        board = [
+            [-1, 0, 0, 0, 0],
+            [0, -1, 0, 0, 0],
+            [0, 0, -1, 0, 0],
+            [0, 0, 0, -1, 0],
+            [0, 0, 0, 0, -1]
+        ]
+        self.assertEqual(check_success(board), -1)
+
+        board = [
+            [0, 0, 0, 0, -1],
+            [0, 0, 0, -1, 0],
+            [0, 0, -1, 0, 0],
+            [0, -1, 0, 0, 0],
+            [-1, 0, 0, 0, 0]
+        ]
+        self.assertEqual(check_success(board), -1)
