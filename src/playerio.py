@@ -53,5 +53,4 @@ def get_player_choice(question, choices, player_team=0):
 
 
 def print_success(board, winner):
-    print_board(board)
     print(f'The player {get_player(winner)} has aligned 5 symbols. Game Won !')

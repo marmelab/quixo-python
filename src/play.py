@@ -10,11 +10,6 @@ def launch_game():
     while True:
         Io.clear()
 
-        winner = Success.check_success(board)
-        if winner != 0:
-            Io.print_success(board, winner)
-            break
-
         movables = Board.get_movables_tiles(board, player_team)
         Io.print_board(board, movables)
 
@@ -33,5 +28,12 @@ def launch_game():
 
         (x_end, y_end) = Board.get_coords_from_movables(destinations, destination_input)
         board = Moves.move_tile(board, (x_start, y_start), (x_end, y_end), player_team)
+
+        winner = Success.check_success(board, player_team)
+        if winner != 0:
+            Io.clear()
+            Io.print_board(board)
+            Io.print_success(board, winner)
+            break
 
         player_team *= -1

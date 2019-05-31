@@ -20,23 +20,24 @@ def check_diag(board, inverted=False):
     return get_winner(sum_diag)
 
 
-def check_rows(board):
-    sum_row = 0
+def check_rows(board, player=0):
+    winner=0
     for row in board:
-        winner = get_winner(sum(row))
-        if (winner != 0):
+        tmp_winner = get_winner(sum(row))
+        if tmp_winner != 0:
+            winner =  tmp_winner
+        if (winner < 0 and player == 1) or (winner > 0 and player == -1):
             return winner
+    return winner
 
-    return get_winner(sum_row)
 
-
-def check_cols(board):
+def check_cols(board, player=0):
     # invert cols and rows
     inverted_board = list(map(list, zip(*board)))
-    return check_rows(inverted_board)
+    return check_rows(inverted_board, player)
 
 
-def check_success(board):
+def check_success(board, player=0):
     """
     Arguments:
         board
@@ -45,9 +46,13 @@ def check_success(board):
     """
     first_diag = check_diag(board)
     second_diag = check_diag(board, True)
-    rows = check_rows(board)
-    cols = check_cols(board)
+    rows = check_rows(board, player)
+    cols = check_cols(board, player)
+    winner = 0
     for result in [first_diag, second_diag, rows, cols]:
         if result != 0:
-            return result
-    return 0
+            winner = result
+        # If the player not playing align, he won whatever
+        if winner < 0 and player == 1 or winner > 0 and player == -1 :
+            return winner
+    return winner
