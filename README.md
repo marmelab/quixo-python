@@ -32,3 +32,7 @@ Runs code linter on the project
 ```
 make lint
 ```
+
+## Example
+
+![](docs/example.gif)
