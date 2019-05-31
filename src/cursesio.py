@@ -17,6 +17,7 @@ def get_player(number):
         return '2'
     return None
 
+
 def get_symbol(value):
     if value < 0:
         return 'O'
@@ -80,25 +81,19 @@ def print_board(stdscr, board, movables=[], selected=(-1, -1), picked=(-1, -1)):
         print_row(stdscr, board[x], cursor_y + 1, x, movables, selected, picked)
 
 
-def get_next_in_direction(stdscr, movables, selected, key):
+def get_next_in_direction(movables, selected, key):
     index = movables.index(selected)
     if key == 'KEY_RIGHT':
-        if index >= len(movables) - 1:
-            index = 0
-        else:
-            index += 1
+        index = 0 if index >= len(movables) - 1 else index + 1
     else:
-        if index == 0:
-            index = len(movables) -1
-        else:
-            index -= 1
-
+        index = len(movables) - 1 if index == 0 else index - 1
     return movables[index]
 
 
-def get_player_selection(stdscr, board, player_team, movables=[], picked=(-1, -1)):
+def get_player_selection(stdscr, board, player_team, movables, picked=(-1, -1)):
     if len(movables) < 1:
         return False
+
     key = None
     selected = movables[0]
     while key != ' ':
@@ -106,13 +101,12 @@ def get_player_selection(stdscr, board, player_team, movables=[], picked=(-1, -1
         print_board(stdscr, board, movables, selected, picked)
         phase = 1 if picked == (-1, -1) else 2
         print_player(stdscr, player_team, phase)
-        (x, y) = selected
         stdscr.refresh()
         key = stdscr.getkey()
+
         if key in DIRECTIONS:
-            tmp_selected = get_next_in_direction(stdscr, movables, selected, key)
+            tmp_selected = get_next_in_direction(movables, selected, key)
             if tmp_selected is not None:
                 selected = tmp_selected
-                (x, y) = selected
 
     return selected
