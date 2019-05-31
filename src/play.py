@@ -13,7 +13,7 @@ def init_curses():
     curses.init_pair(1, curses.COLOR_RED, curses.COLOR_WHITE)
 
 
-def launch_game(stdscr):
+def launch_game_curses(stdscr):
     init_curses()
 
     player_team = 1
@@ -23,11 +23,11 @@ def launch_game(stdscr):
 
         movables = Board.get_movables_tiles(board, player_team)
 
-        (x_start, y_start) = Io.get_player_selection(stdscr, board, movables)
+        (x_start, y_start) = Io.get_player_selection(stdscr, board, player_team, movables)
 
         destinations = Board.get_possibles_destinations(board, x_start, y_start)
 
-        (x_end, y_end) = Io.get_player_selection(stdscr, board, destinations, (x_start, y_start))
+        (x_end, y_end) = Io.get_player_selection(stdscr, board, player_team, destinations, (x_start, y_start))
 
         board = Moves.move_tile(board, (x_start, y_start), (x_end, y_end), player_team)
 
@@ -35,7 +35,7 @@ def launch_game(stdscr):
         if winner != 0:
             Io.clear(stdscr)
             Io.print_board(stdscr, board)
-            Io.print_winner(winner)
+            Io.print_winner(stdscr,winner)
             break
 
         player_team *= -1
@@ -63,4 +63,5 @@ def launch_game(stdscr):
 
         # player_team *= -1
 
-wrapper(launch_game)
+def launch_game():
+    wrapper(launch_game_curses)

@@ -17,18 +17,34 @@ def get_player(number):
         return '2'
     return None
 
+def get_symbol(value):
+    if value < 0:
+        return 'O'
+    if value > 0:
+        return 'X'
+    return ' '
+
 
 def print_winner(stdscr, winner):
-    stdscr.addstr(f'The player {get_player(winner)} has aligned 5 symbols. Game Won !', curses.A_BOLD)
+    stdscr.addstr(f'\n\nThe player {get_player(winner)} has aligned 5 symbols. Game Won !', curses.A_BOLD)
+    stdscr.addstr('\nPress any key to quit !')
+    stdscr.getkey()
+
+
+def print_player(stdscr, player, phase=1):
+    stdscr.addstr(f'\n\nPlayer {get_player(player)} ({get_symbol(player)})')
+    text = 'Press space to select a '
+    text += 'cube to move' if phase == 1 else 'destination for the cube'
+    stdscr.addstr(f'\n{text}')
 
 
 def get_attr(pos, movables, selected, picked):
     if pos == picked:
-        return curses.A_BOLD
-    if pos == selected:
         return curses.A_BLINK
+    if pos == selected:
+        return curses.A_BOLD
     if pos in movables:
-        return curses.A_NORMAL
+        return curses.A_DIM
     return curses.A_DIM
 
 
@@ -80,7 +96,7 @@ def get_next_in_direction(stdscr, movables, selected, key):
     return movables[index]
 
 
-def get_player_selection(stdscr, board, movables=[], picked=(-1, -1)):
+def get_player_selection(stdscr, board, player_team, movables=[], picked=(-1, -1)):
     if len(movables) < 1:
         return False
     key = None
@@ -88,6 +104,8 @@ def get_player_selection(stdscr, board, movables=[], picked=(-1, -1)):
     while key != ' ':
         clear(stdscr)
         print_board(stdscr, board, movables, selected, picked)
+        phase = 1 if picked == (-1, -1) else 2
+        print_player(stdscr, player_team, phase)
         (x, y) = selected
         stdscr.refresh()
         key = stdscr.getkey()
