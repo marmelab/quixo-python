@@ -1,39 +1,38 @@
 import game.board as Board
 import game.success as Success
 import game.moves as Moves
-import playerio as Io
+import cursesio as Ui
+from curses import wrapper
+import curses
 
 
-def launch_game():
+def launch_game_curses(stdscr):
+    Ui.init_curses()
+
     player_team = 1
     board = Board.create_board()
     while True:
-        Io.clear()
+        Ui.clear(stdscr)
 
         movables = Board.get_movables_tiles(board, player_team)
-        Io.print_board(board, movables)
 
-        movables_choices = list(range(1, len(movables) + 1))
-        player_input = Io.get_player_choice('Tile to move : ', movables_choices, player_team)
-
-        Io.clear()
-
-        (x_start, y_start) = Board.get_coords_from_movables(movables, player_input)
+        (x_start, y_start) = Ui.get_player_selection(stdscr, board, player_team, movables)
 
         destinations = Board.get_possibles_destinations(board, x_start, y_start)
-        Io.print_board(board, destinations, (x_start, y_start))
 
-        destinations_choices = list(range(1, len(destinations) + 1))
-        destination_input = Io.get_player_choice('Destination of the tile : ', destinations_choices, player_team)
+        (x_end, y_end) = Ui.get_player_selection(stdscr, board, player_team, destinations, (x_start, y_start))
 
-        (x_end, y_end) = Board.get_coords_from_movables(destinations, destination_input)
         board = Moves.move_tile(board, (x_start, y_start), (x_end, y_end), player_team)
 
         winner = Success.check_success(board, player_team)
         if winner != 0:
-            Io.clear()
-            Io.print_board(board)
-            Io.print_success(board, winner)
+            Ui.clear(stdscr)
+            Ui.print_board(stdscr, board)
+            Ui.print_winner(stdscr, winner)
             break
 
         player_team *= -1
+
+
+def launch_game():
+    wrapper(launch_game_curses)

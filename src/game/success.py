@@ -21,7 +21,7 @@ def check_diag(board, inverted=False):
 
 
 def check_rows(board, player=0):
-    winner=0
+    winner = 0
     for row in board:
         tmp_winner = get_winner(sum(row))
         if tmp_winner != 0:
@@ -53,6 +53,6 @@ def check_success(board, player=0):
         if result != 0:
             winner = result
         # If the player not playing align, he won whatever
-        if winner < 0 and player == 1 or winner > 0 and player == -1 :
+        if winner == -1 and player == 1 or winner == 1 and player == -1:
             return winner
     return winner
