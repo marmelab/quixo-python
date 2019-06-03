@@ -1,9 +1,16 @@
 import curses
 from tiles import cross, circle, empty
 
+GREEN = 1
 OFFSET_X = 5
-
 DIRECTIONS = ['KEY_LEFT', 'KEY_RIGHT']
+
+
+def init_curses():
+    curses.start_color()
+    curses.use_default_colors()
+    curses.curs_set(0)
+    curses.init_pair(GREEN, curses.COLOR_GREEN, -1)
 
 
 def clear(stdscr):
@@ -43,9 +50,9 @@ def get_attr(pos, movables, selected, picked):
     if pos == picked:
         return curses.A_BLINK
     if pos == selected:
-        return curses.A_BOLD
+        return curses.color_pair(GREEN) + curses.A_BOLD
     if pos in movables:
-        return curses.A_DIM
+        return curses.A_BOLD
     return curses.A_DIM
 
 
@@ -62,7 +69,7 @@ def print_tile(stdscr, tile, y_start, x_start, attr):
     for y in range(len(tile)):
         wide = wide if len(tile[y]) < wide else len(tile[y])
         for x in range(len(tile[y])):
-            stdscr.addch(y + y_start, x + x_start, tile[y][x], attr)
+            stdscr.addstr(y + y_start, x + x_start, tile[y][x], attr)
 
     return wide
 
