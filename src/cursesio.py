@@ -46,7 +46,7 @@ def print_player(stdscr, player, phase=1):
     stdscr.addstr(f'\n{text}')
 
 
-def get_attr(pos, movables, selected, picked):
+def get_style(pos, movables, selected, picked):
     if pos == picked:
         return curses.A_BLINK
     if pos == selected:
@@ -77,7 +77,7 @@ def print_tile(stdscr, tile, y_start, x_start, attr):
 def print_row(stdscr, row, cursor_y, x, movables, selected, picked):
     cursor_x = OFFSET_X
     for y in range(len(row)):
-        attr = get_attr((x, y), movables, selected, picked)
+        attr = get_style((x, y), movables, selected, picked)
         wide = print_tile(stdscr, get_tile(row[y]), cursor_y, cursor_x, attr)
         cursor_x += wide
 
