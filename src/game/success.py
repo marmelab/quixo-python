@@ -25,7 +25,7 @@ def check_rows(board, player=0):
     for row in board:
         tmp_winner = get_winner(sum(row))
         if tmp_winner != 0:
-            winner =  tmp_winner
+            winner = tmp_winner
         if (winner < 0 and player == 1) or (winner > 0 and player == -1):
             return winner
     return winner
